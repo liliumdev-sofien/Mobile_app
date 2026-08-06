@@ -1,0 +1,9 @@
+{
+  "appId": "com.liliumpharma.app",
+  "appName": "LiliumPharma",
+  "webDir": "www",
+  "server": {
+    "url": "https://app.liliumpharma.com",
+    "cleartext": false
+  }
+}
