@@ -20,5 +20,8 @@
     "@capawesome/capacitor-android-edge-to-edge-support": "7.2.3",
     "capacitor-native-biometric": "4.2.2",
     "capacitor-secure-storage-plugin": "0.12.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5"
   }
 }
