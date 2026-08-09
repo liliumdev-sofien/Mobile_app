@@ -12,6 +12,7 @@ dependencies {
     implementation project(':capacitor-community-speech-recognition')
     implementation project(':capacitor-mlkit-barcode-scanning')
     implementation project(':capacitor-mlkit-document-scanner')
+    implementation project(':capacitor-filesystem')
     implementation project(':capacitor-geolocation')
     implementation project(':capawesome-capacitor-android-edge-to-edge-support')
     implementation project(':capacitor-native-biometric')

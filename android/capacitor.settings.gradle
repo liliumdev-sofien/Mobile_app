@@ -11,6 +11,9 @@ project(':capacitor-mlkit-barcode-scanning').projectDir = new File('../node_modu
 include ':capacitor-mlkit-document-scanner'
 project(':capacitor-mlkit-document-scanner').projectDir = new File('../node_modules/@capacitor-mlkit/document-scanner/android')
 
+include ':capacitor-filesystem'
+project(':capacitor-filesystem').projectDir = new File('../node_modules/@capacitor/filesystem/android')
+
 include ':capacitor-geolocation'
 project(':capacitor-geolocation').projectDir = new File('../node_modules/@capacitor/geolocation/android')
 
