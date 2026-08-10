@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "240116999569",
+    "project_id": "lilium-mobile",
+    "storage_bucket": "lilium-mobile.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240116999569:android:4ea5c83d3c1b5ee8246630",
+        "android_client_info": {
+          "package_name": "com.liliumpharma.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1g-sakdATZewsOB1ZrapoI5p8o5cQfPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
