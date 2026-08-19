@@ -10,14 +10,11 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':capacitor-community-speech-recognition')
-    implementation project(':capacitor-mlkit-barcode-scanning')
     implementation project(':capacitor-mlkit-document-scanner')
     implementation project(':capacitor-filesystem')
     implementation project(':capacitor-geolocation')
     implementation project(':capacitor-push-notifications')
     implementation project(':capawesome-capacitor-android-edge-to-edge-support')
-    implementation project(':capacitor-native-biometric')
-    implementation project(':capacitor-secure-storage-plugin')
 
 }
 
