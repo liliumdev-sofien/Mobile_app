@@ -6,10 +6,5 @@
     "url": "https://app.liliumpharma.com",
     "cleartext": false,
     "allowNavigation": ["app.liliumpharma.com"]
-  },
-  "plugins": {
-    "SystemBars": {
-      "insetsHandling": "disable"
-    }
   }
 }
