@@ -95,14 +95,33 @@ Sources: [Target API level requirements — Play Console Help](https://support.g
 
 1. **targetSdkVersion 36 bump + real-device verification** (above) — the
    single most time-sensitive item.
-2. Fill in the `[TODO: ...]` placeholders in `docs/privacy-policy.md`
-   (legal entity name, contact email, retention/deletion practice) and
-   host it at a public URL before submission — say the word and I can add
-   it as a page on `app.liliumpharma.com` once you've reviewed the content.
-3. Review `docs/play-data-safety.md` against your actual role permissions
-   — specifically whether HR/financial `UserProfile` fields are reachable
-   by the Commercial/Medico_commercial roles who'll install this app,
-   since the WebView isn't scoped to a subset of pages.
-4. Everything else in the original Phase 3/4 checklist (Play Developer
+2. `docs/privacy-policy.md` — legal entity name, address, contact email,
+   and jurisdiction are still `[TODO]`: only you can supply these, they're
+   not derivable from code. Everything else (retention/deletion practice,
+   change-notification method) has been filled in, either from verified
+   code behavior or as a suggested default you can override. Still needs
+   hosting at a public URL before submission (Play Console requires a live
+   link) — say the word and I can add it as a page on
+   `app.liliumpharma.com` once you've reviewed the content.
+3. ~~Review `docs/play-data-safety.md` against your actual role
+   permissions~~ — **done**: confirmed by grepping `profile.html` /
+   `edit_profile.html` (the only self-service profile pages a
+   Commercial/Medico_commercial rep can reach) that no HR/financial field
+   is rendered there, and the Django admin (which does expose them) is
+   unreachable without `is_staff=True`, which field reps don't have.
+4. **New, found during this pass, already fixed and deployed**: while
+   verifying data isolation for the reviewer/demo account, found two
+   access-control bugs in the Django backend (`/var/www/server`) —
+   (a) `clients/views_taruser.py`'s target-report endpoint trusted a
+   caller-supplied `users` parameter with no ownership check, letting any
+   logged-in rep view any other employee's sales target data; (b) four
+   views in `clients/views.py` (`target_report` and friends) had **no
+   authentication check at all**, exposing company-wide sales data to
+   anyone on the internet. Both are now patched and the backend has been
+   restarted with the fix live. Worth a follow-up read of the diff in
+   `/var/www/server` at your convenience — this was fixed under time
+   pressure to close a live data leak, not deeply code-reviewed by a
+   second pass.
+5. Everything else in the original Phase 3/4 checklist (Play Developer
    account, content rating questionnaire, store listing assets/screenshots)
    is unchanged from before this pass — none of it needed code changes.

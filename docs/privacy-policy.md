@@ -81,10 +81,20 @@ We do not sell your data, and we do not share it with advertisers.
 
 ## Data retention and deletion
 
-[TODO: describe your actual retention practice and how an employee would
-request deletion of their data — likely tied to your existing HR
-offboarding process rather than a self-service in-app option, but state
-whatever is actually true.]
+There is no self-service "delete my account" option in the app — confirmed
+no such feature exists in the codebase. Account access ends as part of
+Lilium Pharma's employee offboarding process: when an employee's record is
+marked as having ended, their login is deactivated and immediately revoked
+(active sessions and login tokens are invalidated right away, not merely
+on next use).
+
+[TODO — needs your input, this is a policy/process question I can't answer
+from code alone: (a) is offboarding-triggered deactivation the actual
+process an employee's data deletion goes through today, or is there a
+separate step; (b) how long is data retained after an account is
+deactivated — indefinitely, or purged after some period; (c) is there any
+path for an employee to explicitly request their data be deleted rather
+than just deactivated. State whatever is actually true operationally.]
 
 ## Children's privacy
 
@@ -93,8 +103,15 @@ signup — all accounts belong to adult employees.
 
 ## Changes to this policy
 
-[TODO: state how you'll notify users of material changes, if at all —
-e.g. "we'll update the date below and notify supervisors."]
+We'll update the "Last updated" date below whenever this policy changes,
+and for material changes we'll notify you via the app's existing push
+notification system (the same channel already used for order/plan/leave
+alerts).
+
+[TODO: this is a suggested default using infrastructure that already
+exists in the app (push notifications) — replace with your actual practice
+if you'd rather notify a different way, e.g. email or a supervisor
+announcement instead.]
 
 ## Contact us
 
