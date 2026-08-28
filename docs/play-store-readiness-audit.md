@@ -24,10 +24,16 @@ No storage permissions (`WRITE_EXTERNAL_STORAGE` etc.) are declared and
 none are needed — document scanning and file handling go through scoped,
 app-private storage via the Filesystem plugin, not shared storage.
 
-## 2. targetSdkVersion — ⚠️ action needed before submission, and the deadline is close
+## 2. targetSdkVersion — ✅ bumped, ⚠️ still needs a real-device verification pass
 
-**Current state**: `android/variables.gradle` has `compileSdkVersion 35` /
-`targetSdkVersion 35`.
+**Update (2026-08-28, commit `9a0b60b`)**: `compileSdkVersion`/`targetSdkVersion`
+have been bumped to **36** and the resulting Android 16 status/nav-bar overlap
+was fixed in the same commit. The "current state 35" note below is what
+prompted that bump — it's now out of date and kept only for the reasoning
+that follows.
+
+**Original finding, now resolved**: `android/variables.gradle` had
+`compileSdkVersion 35` / `targetSdkVersion 35`.
 
 **Current Play Store policy** (checked live, not from training data — see
 sources): starting **August 31, 2026**, *new app submissions* must target
@@ -43,18 +49,16 @@ first-time submission — meaning **35 will very likely be rejected** if you
 submit after August 31, 2026, which is only days away from when this was
 written.
 
-**I did not bump this myself.** Raising the target API level isn't just a
-number — Android enforces new default runtime behaviors at each target
-level (this jump from 35→36 potentially affects predictive-back-gesture
-handling, additional permission enforcement, and other platform defaults
-I can't fully enumerate or verify without a real build). It also may
-require newer Android Gradle Plugin / Gradle / androidx versions to even
-compile, none of which I can verify without a real build+device test —
-same reasoning as why `minifyEnabled` was left off. **Recommend**: bump
-`compileSdkVersion`/`targetSdkVersion` to 36 on your machine, run a full
-build, and test on a real device (or emulator) before your first
-submission attempt — don't leave this until you're at the Play Console
-upload step and discover the rejection then.
+The number has been bumped (see above), but raising the target API level
+isn't just a number — Android enforces new default runtime behaviors at
+each target level (this jump from 35→36 potentially affects
+predictive-back-gesture handling, additional permission enforcement, and
+other platform defaults). The status/nav-bar overlap was caught and fixed,
+but that was found by inspection, not by running the app. **Still
+recommended before your first submission**: do a full build and click
+through the app on a real device (or emulator) — login, scanning,
+dictation, geolocation capture, push notifications — to catch anything
+else the 35→36 jump changed that inspection alone wouldn't surface.
 
 Sources: [Target API level requirements — Play Console Help](https://support.google.com/googleplay/android-developer/answer/11926878), [Meet Google Play's target API level requirement — Android Developers](https://developer.android.com/google/play/requirements/target-sdk)
 
@@ -93,8 +97,9 @@ Sources: [Target API level requirements — Play Console Help](https://support.g
 
 ## What's genuinely left for you (judgment calls, not guesses)
 
-1. **targetSdkVersion 36 bump + real-device verification** (above) — the
-   single most time-sensitive item.
+1. **targetSdkVersion 36 real-device verification** (above) — the bump
+   itself is done; a real-device click-through pass is the part still
+   time-sensitive before your first submission.
 2. `docs/privacy-policy.md` — legal entity name, address, contact email,
    and jurisdiction are still `[TODO]`: only you can supply these, they're
    not derivable from code. Everything else (retention/deletion practice,

@@ -12,11 +12,10 @@ def capacitor_pods
   pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCommunitySpeechRecognition', :path => '../../node_modules/@capacitor-community/speech-recognition'
-  pod 'CapacitorMlkitBarcodeScanning', :path => '../../node_modules/@capacitor-mlkit/barcode-scanning'
   pod 'CapacitorMlkitDocumentScanner', :path => '../../node_modules/@capacitor-mlkit/document-scanner'
+  pod 'CapacitorFilesystem', :path => '../../node_modules/@capacitor/filesystem'
   pod 'CapacitorGeolocation', :path => '../../node_modules/@capacitor/geolocation'
-  pod 'CapacitorNativeBiometric', :path => '../../node_modules/capacitor-native-biometric'
-  pod 'CapacitorSecureStoragePlugin', :path => '../../node_modules/capacitor-secure-storage-plugin'
+  pod 'CapacitorPushNotifications', :path => '../../node_modules/@capacitor/push-notifications'
 end
 
 target 'App' do
