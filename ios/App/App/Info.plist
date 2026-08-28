@@ -22,6 +22,16 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>LiliumPharma uses the camera to scan barcodes and documents.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>LiliumPharma uses your location to record visit locations in the field.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>LiliumPharma uses the microphone for voice dictation.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>LiliumPharma uses speech recognition to convert your voice dictation into text.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>LiliumPharma uses Face ID to securely unlock the app.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
