@@ -1,24 +1,20 @@
 # Privacy Policy — Lilium Pharma (mobile app)
 
-**Draft for your review — not yet published anywhere.** Once you're happy
-with it, it needs to be hosted at a public URL (Play Console requires a
-live link, not a file in a repo) — I can wire this up as a page on
-`app.liliumpharma.com` if you'd like, once you've reviewed the content.
-
-Placeholders you need to fill in before this is publish-ready, marked
-**[TODO: ...]** throughout: legal company name/address, a contact email
-for privacy questions, and your jurisdiction (affects which sections, if
-any, need GDPR/CCPA-specific language).
+*Last updated: August 29, 2026*
 
 ---
 
 ## Who this applies to
 
-This app is an internal tool for Lilium Pharma's field-force employees
-(sales representatives, supervisors, and office staff) — it is not a
-public consumer app, and there is no public account signup; access
-requires an employee account already provisioned in Lilium Pharma's
-system.
+This app is an internal tool for **EURL Lilium Pharma Algérie**'s
+field-force employees (sales representatives, supervisors, and office
+staff) — it is not a public consumer app, and there is no public account
+signup; access requires an employee account already provisioned in Lilium
+Pharma's system. This policy is governed by Algerian law; no GDPR- or
+CCPA-specific provisions apply.
+
+**EURL Lilium Pharma Algérie**
+Lot communal C, lot n°123, 2ème étage, Draria, Alger, Algérie
 
 ## Data we collect and why
 
@@ -62,10 +58,8 @@ those notifications, not for advertising or tracking.
 
 All data described above is stored on servers we operate and control
 (PostgreSQL database and file storage), not on third-party cloud storage.
-[TODO: add a line about encryption in transit (HTTPS — already true, the
-app only ever talks to `https://app.liliumpharma.com`) and at rest if
-that's something your infrastructure guarantees and you want stated
-publicly.]
+All communication between the app and our servers is encrypted in transit
+(HTTPS) — the app only ever talks to `https://app.liliumpharma.com`.
 
 ## Third parties we share data with
 
@@ -81,20 +75,15 @@ We do not sell your data, and we do not share it with advertisers.
 
 ## Data retention and deletion
 
-There is no self-service "delete my account" option in the app — confirmed
-no such feature exists in the codebase. Account access ends as part of
-Lilium Pharma's employee offboarding process: when an employee's record is
-marked as having ended, their login is deactivated and immediately revoked
-(active sessions and login tokens are invalidated right away, not merely
-on next use).
-
-[TODO — needs your input, this is a policy/process question I can't answer
-from code alone: (a) is offboarding-triggered deactivation the actual
-process an employee's data deletion goes through today, or is there a
-separate step; (b) how long is data retained after an account is
-deactivated — indefinitely, or purged after some period; (c) is there any
-path for an employee to explicitly request their data be deleted rather
-than just deactivated. State whatever is actually true operationally.]
+There is no self-service "delete my account" option in the app. Account
+access ends as part of Lilium Pharma's employee offboarding process: when
+an employee's record is marked as having ended, their login is deactivated
+and immediately revoked (active sessions and login tokens are invalidated
+right away, not merely on next use). Data associated with a deactivated
+account is retained indefinitely in our systems after offboarding; it is
+not automatically purged after a fixed period, and there is currently no
+separate self-service request process for an employee to have their data
+deleted outright.
 
 ## Children's privacy
 
@@ -103,19 +92,12 @@ signup — all accounts belong to adult employees.
 
 ## Changes to this policy
 
-We'll update the "Last updated" date below whenever this policy changes,
+We'll update the "Last updated" date above whenever this policy changes,
 and for material changes we'll notify you via the app's existing push
 notification system (the same channel already used for order/plan/leave
 alerts).
 
-[TODO: this is a suggested default using infrastructure that already
-exists in the app (push notifications) — replace with your actual practice
-if you'd rather notify a different way, e.g. email or a supervisor
-announcement instead.]
-
 ## Contact us
 
-[TODO: contact email/address for privacy questions.]
-
----
-*Last updated: [TODO: date this is actually published]*
+For privacy questions, contact us at **contact@liliumpharma.com**, or at
+our registered address above.
