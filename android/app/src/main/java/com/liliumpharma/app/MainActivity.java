@@ -77,12 +77,9 @@ public class MainActivity extends BridgeActivity {
     // on target="_blank"/window.open() — without this, tapping them silently does
     // nothing. Load the requested URL in the same WebView instead of a real new window,
     // since this is a single-WebView wrapper and doing it this way keeps the existing
-    // Django session cookie, which a separate window/external browser wouldn't have —
-    // but only for URLs the app's own allowNavigation config permits: view.loadUrl()
-    // bypasses Capacitor's normal shouldOverrideUrlLoading gate entirely, so anything
-    // off-domain is routed through bridge.launchIntent() (the same check regular link
-    // taps go through) to send it to an external browser instead of loading it — with
-    // the session cookie — inside this WebView.
+    // Django session cookie, which a separate window/external browser wouldn't have.
+    // (An earlier version of this also offered off-domain URLs to an external app via
+    // bridge.launchIntent() - removed, see loadInWebViewOrExternally below for why.)
     private void setUpNewWindowAndDownloadHandling() {
         WebView webView = getBridge().getWebView();
         Bridge bridge = getBridge();
@@ -129,16 +126,17 @@ public class MainActivity extends BridgeActivity {
         );
     }
 
-    // Loads url in the real WebView if it's within the app's own allowNavigation config,
-    // otherwise hands it to an external app/browser via the same gate Capacitor's normal
-    // link-tap handling uses (bridge.launchIntent) - so window.open()/target="_blank"
-    // navigation can't be used to load off-domain content into the authenticated WebView.
+    // Always loads url in the real WebView. This used to also offer off-domain URLs to
+    // an external app via bridge.launchIntent() first - removed: every link/button this
+    // app actually has is a same-domain relative path (verified against every template
+    // in the Django backend), and bridge.launchIntent() calls into PackageManager/
+    // startActivity() synchronously, on the same UI thread Android requires
+    // onCreateWindow/DownloadListener callbacks to run on - a real, reproducible app
+    // freeze (native back button included, not just the WebView) traced to exactly this
+    // call. Not worth the risk for a code path this app's own links never need.
     private void loadInWebViewOrExternally(WebView view, String url) {
         Uri resolved = resolveAgainstCurrentPage(view, url);
-        boolean handledExternally = getBridge().launchIntent(resolved);
-        if (!handledExternally) {
-            view.loadUrl(resolved.toString());
-        }
+        view.loadUrl(resolved.toString());
     }
 
     // HitTestResult.getExtra() (used above for a plain <a target="_blank"> tap) returns
@@ -161,13 +159,8 @@ public class MainActivity extends BridgeActivity {
     }
 
     private void downloadAndOpen(String url, String mimetype) {
-        // Same allowNavigation gate as loadInWebViewOrExternally: an off-domain download
-        // URL must not get the session cookie attached below, so hand it off externally
-        // instead of fetching it ourselves.
-        if (getBridge().launchIntent(Uri.parse(url))) {
-            return;
-        }
-
+        // No launchIntent() pre-check here either, for the same reason as
+        // loadInWebViewOrExternally above - see that comment.
         String cookie = CookieManager.getInstance().getCookie(url);
         String resolvedMimetype = mimetype != null ? mimetype : "application/pdf";
 
