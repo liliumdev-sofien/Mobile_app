@@ -134,9 +134,29 @@ public class MainActivity extends BridgeActivity {
     // link-tap handling uses (bridge.launchIntent) - so window.open()/target="_blank"
     // navigation can't be used to load off-domain content into the authenticated WebView.
     private void loadInWebViewOrExternally(WebView view, String url) {
-        boolean handledExternally = getBridge().launchIntent(Uri.parse(url));
+        Uri resolved = resolveAgainstCurrentPage(view, url);
+        boolean handledExternally = getBridge().launchIntent(resolved);
         if (!handledExternally) {
-            view.loadUrl(url);
+            view.loadUrl(resolved.toString());
+        }
+    }
+
+    // HitTestResult.getExtra() (used above for a plain <a target="_blank"> tap) returns
+    // the href attribute exactly as written in the HTML, not a resolved URL - and this
+    // Django-templated site's own links are typically relative (e.g. "/deplacement/123/
+    // pdf/"). Uri.parse() on a relative string has a null host, which bridge.launchIntent
+    // would otherwise treat as off-domain and fail to hand off to any app. Resolve against
+    // the current page first, the same way WebView.loadUrl() itself already does for
+    // ordinary navigation.
+    private Uri resolveAgainstCurrentPage(WebView view, String url) {
+        Uri uri = Uri.parse(url);
+        if (uri.getScheme() != null) {
+            return uri;
+        }
+        try {
+            return Uri.parse(new URL(new URL(view.getUrl()), url).toString());
+        } catch (Exception e) {
+            return uri;
         }
     }
 
