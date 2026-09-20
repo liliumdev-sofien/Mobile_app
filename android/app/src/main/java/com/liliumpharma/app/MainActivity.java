@@ -1,13 +1,17 @@
 package com.liliumpharma.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.print.PrintAttributes;
+import android.print.PrintManager;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -67,6 +71,49 @@ public class MainActivity extends BridgeActivity {
         ViewCompat.requestApplyInsets(insetTarget);
 
         setUpNewWindowAndDownloadHandling();
+        setUpNativeBridge();
+    }
+
+    // The web app (a single Django site, not a packaged SPA) has no other channel to reach
+    // native OS features it needs beyond what Capacitor's own plugins cover - namely a real
+    // print dialog and the OS share sheet for the "Imprimer"/"Partager" buttons on order
+    // cards (see orders/templates/orders/exit_front.html). android.webkit.WebView implements
+    // neither window.print() nor navigator.share() itself (unlike a real mobile browser), so
+    // without this those buttons silently just navigate to the PDF-styled template page.
+    // Exposed only to the app's own origin (server.url/allowNavigation in capacitor.config.json
+    // restrict what can load in this WebView), so this doesn't hand a print/share primitive to
+    // arbitrary third-party content.
+    private void setUpNativeBridge() {
+        getBridge().getWebView().addJavascriptInterface(new Object() {
+            @JavascriptInterface
+            public void print() {
+                runOnUiThread(() -> {
+                    WebView webView = getBridge().getWebView();
+                    PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+                    String jobName = getString(R.string.app_name) + " Document";
+                    printManager.print(
+                        jobName,
+                        webView.createPrintDocumentAdapter(jobName),
+                        new PrintAttributes.Builder().build()
+                    );
+                });
+            }
+
+            @JavascriptInterface
+            public void share(String url, String title) {
+                runOnUiThread(() -> {
+                    Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                    sendIntent.setType("text/plain");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+                    if (title != null && !title.isEmpty()) {
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+                    }
+                    Intent chooser = Intent.createChooser(sendIntent, null);
+                    chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(chooser);
+                });
+            }
+        }, "NativeBridge");
     }
 
     // Capacitor's WebView has no handling for window.open()/target="_blank" out of the
