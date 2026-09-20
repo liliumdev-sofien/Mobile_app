@@ -5,7 +5,8 @@
   "server": {
     "url": "https://app.liliumpharma.com",
     "cleartext": false,
-    "allowNavigation": ["app.liliumpharma.com"]
+    "allowNavigation": ["app.liliumpharma.com"],
+    "errorPath": "error.html"
   },
   "android": {
     "webContentsDebuggingEnabled": true

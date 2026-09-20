@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>LiliumPharma</title>
+<!--
+  Capacitor's server.errorPath (see capacitor.config.json) - the WebView
+  loads this bundled local page instead of Chromium's native
+  "Web page not available" screen whenever the main-frame request fails,
+  whether that's no network at all (onReceivedError, e.g.
+  net::ERR_INTERNET_DISCONNECTED) or the server responding with an error
+  status like a 502 while gunicorn is restarting (onReceivedHttpError).
+  Since it must render with zero network access, everything here is
+  inline - no external fonts, images or scripts.
+-->
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    background: #f4f7f5;
+    color: #1e2532;
+  }
+  .card { max-width: 380px; width: 100%; text-align: center; }
+  .icon-wrap {
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1b5e20, #4caf50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 22px rgba(27, 94, 32, .25);
+  }
+  .icon-wrap svg { width: 40px; height: 40px; }
+  h1 { font-size: 1.15rem; font-weight: 700; margin: 0 0 6px; color: #1b5e20; }
+  h1 .ar { display: block; direction: rtl; font-size: 1rem; color: #2e7d32; margin-top: 2px; }
+  p { font-size: .92rem; line-height: 1.5; color: #566072; margin: 0 0 4px; }
+  p.ar { direction: rtl; margin: 0 0 22px; }
+  button {
+    margin-top: 14px;
+    border: none;
+    cursor: pointer;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-size: .92rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+    box-shadow: 0 4px 14px rgba(21, 128, 61, .35);
+  }
+  button:active { transform: scale(.97); }
+  .brand { margin-top: 28px; font-size: .74rem; letter-spacing: .04em; color: #9aa79f; text-transform: uppercase; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+      </svg>
+    </div>
+    <h1>Problème de connexion<span class="ar">مشكلة في الاتصال</span></h1>
+    <p>Vérifiez votre connexion internet, ou nos serveurs sont peut-être en maintenance. Réessayez dans un instant.</p>
+    <p class="ar">تحقق من اتصالك بالإنترنت، أو قد تكون خوادمنا قيد الصيانة. حاول مرة أخرى بعد قليل.</p>
+    <button onclick="location.href='https://app.liliumpharma.com/'">Réessayer &nbsp;/&nbsp; إعادة المحاولة</button>
+    <div class="brand">Lilium Pharma</div>
+  </div>
+</body>
+</html>
